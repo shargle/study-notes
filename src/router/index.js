@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+//import Es6 from '../views/es6/index.vue'
 
 Vue.use(VueRouter)
 import Layout from '@/layout'
@@ -9,16 +9,28 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: Layout,
-  }
+    redirect:'/index',
+    children:[{
+      path:'index',
+      name:'index',
+      component:()=>import('@/views/home/index'),
+      meta:{title:'首页', icon:'home'}
+    }]
+  },
+  
+  {
+    path: '/es6',
+    component: Layout,
+    children: [
+      {
+        path: 'es6',
+        name: 'es6',
+        component: () => import('@/views/es6/index'),
+        meta: { title: 'ES6', icon: 'form' }
+      }
+    ]
+  },
 ]
 
 const router = new VueRouter({
