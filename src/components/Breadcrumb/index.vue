@@ -1,10 +1,12 @@
 <template>
 <el-breadcrumb class="app-breadcrumb" separator="/">
+
 <transition-group name="breadcrumb">
     <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
         <span v-if="item.redirect==='noRedirect'||index==levelList.length-1" class="no-redirect">
-            {{item.meta.title}} {{item}}
+            {{item.meta.title}} 
         </span>
+        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
     </el-breadcrumb-item>
 </transition-group>
 </el-breadcrumb>
@@ -31,16 +33,13 @@ export default {
     }
     ,methods:{
         getBreadcrumb(){
-            let matched=this.$route.matched.filter(item=>{
-                return item.meta&&item.meta.title
-            })
-            const first=matched[0]
-            if(!this.isDashboard(first)){
+            let matched=this.$route.matched.filter(item=> item.meta&&item.meta.title  )
+          
+            if(!this.isDashboard(matched[0])){
                 matched=[{path:'/index',meta:{title:'首页'}}].concat(matched)
             }
-            this.levelList=matched.filter(item=>{
-                return item.meta&&item.meta.title&&item.meta.breadcrumb!==false}
-                )
+            this.levelList=matched.filter(item=>item.meta&&item.meta.title&&item.meta.breadcrumb!==false)
+            console.log( this.levelList)
         },
         isDashboard(route){
             const name=route&&route.name
@@ -48,7 +47,7 @@ export default {
                 return false
             }
             return name.trim().toLocaleLowerCase()==='index'.toLocaleLowerCase()
-            
+
         },
         pathCompile(path){
             const {params}=this.$route

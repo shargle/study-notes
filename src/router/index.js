@@ -15,7 +15,7 @@ const routes = [
       path:'index',
       name:'index',
       component:()=>import('@/views/home/index'),
-      meta:{title:'首页', icon:'home'}
+      meta:{title:'首页', icon:'el-icon-s-home'}
     }]
   },
   
@@ -27,7 +27,7 @@ const routes = [
         path: 'es6',
         name: 'es6',
         component: () => import('@/views/es6/index'),
-        meta: { title: 'ES6', icon: 'form' }
+        meta: { title: 'ES6', icon: 'el-icon-s-order' }
       }
     ]
   },
